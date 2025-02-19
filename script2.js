@@ -1,14 +1,15 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
-
 // Time Stamp Visualization
 // Visualization 3
 
 const visHeight = 200;
-const barWidth = 25;
-const barSpace = 5;
+const visWidth = 800;
 
-const visualization3 = d3.select("#Time-Vis").append("svg").attr("height", visHeight);
+const visualization3 = d3.select("#Time-Vis")
+    .append("svg")
+    .attr("height", visHeight)
+    .attr("width", visWidth);
 
 // Javascript needs these initialized or else it bricks
 let data30, data60, data90, data120, data30Meals;
@@ -31,24 +32,21 @@ function processData(data) {
         d["120_min_change"] = +d["120_min_change"];
     });
 
-    data30 = data.sort((a, b) => b["30_min_change"] - a["30_min_change"]).slice(0, 10);
-    data60 = data.sort((a, b) => b["60_min_change"] - a["60_min_change"]).slice(0, 10);
-    data90 = data.sort((a, b) => b["90_min_change"] - a["90_min_change"]).slice(0, 10);
-    data120 = data.sort((a, b) => b["120_min_change"] - a["120_min_change"]).slice(0, 10);
+    const sortedBy30 = [...data].sort((a, b) => Math.abs(b["30_min_change"]) - Math.abs(a["30_min_change"])).slice(0, 10);
+    const sortedBy60 = [...data].sort((a, b) => Math.abs(b["60_min_change"]) - Math.abs(a["60_min_change"])).slice(0, 10);
+    const sortedBy90 = [...data].sort((a, b) => Math.abs(b["90_min_change"]) - Math.abs(a["90_min_change"])).slice(0, 10);
+    const sortedBy120 = [...data].sort((a, b) => Math.abs(b["120_min_change"]) - Math.abs(a["120_min_change"])).slice(0, 10);
 
-    data30Meals = data30.map(d => d.Meal_Name);
-    data30 = data30.map(d => d["30_min_change"]);
-    data60 = data60.map(d => d["60_min_change"]);
-    data90 = data90.map(d => d["90_min_change"]);
-    data120 = data120.map(d => d["120_min_change"]);
+    data30Meals = sortedBy30.map(d => d.Meal_Name);
+    data30 = sortedBy30.map(d => Math.abs(d["30_min_change"]));
+    data60 = sortedBy60.map(d => Math.abs(d["60_min_change"]));
+    data90 = sortedBy90.map(d => Math.abs(d["90_min_change"]));
+    data120 = sortedBy120.map(d => Math.abs(d["120_min_change"]));
 }
 
 // Actually Renders the visualization
 function renderVis3(data, labels, color) {
     visualization3.selectAll("*").remove();
-
-    const visWidth = data.length * (barWidth + barSpace) + 50;
-    visualization3.attr("width", visWidth);
 
     const xScale = d3.scaleBand()
         .domain(labels)
