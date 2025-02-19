@@ -41,6 +41,17 @@ const colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([-1, 1]);
 svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(xScale));
 svg.append("g").call(d3.axisLeft(yScale));
 
+// Add axis labels
+svg.append("text")
+    .attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+    .style("text-anchor", "middle")
+    .text("Variables");
+
+svg.append("text")
+    .attr("transform", `translate(-50, ${height / 2}) rotate(-90)`)
+    .style("text-anchor", "middle")
+    .text("Variables");
+
 const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0)
@@ -50,7 +61,6 @@ const tooltip = d3.select("body").append("div")
     .style("padding", "5px")
     .style("border-radius", "5px");
 
-// Ensure correct path to glucose_changes.csv
 d3.csv("glucose_changes.csv").then(data => {
     data.forEach(d => {
         variables.forEach(varName => d[varName] = +d[varName]);
