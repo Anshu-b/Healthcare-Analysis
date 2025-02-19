@@ -30,6 +30,20 @@
         <div id="heatmap-container">
             <!-- The heatmap will be rendered here -->
         </div>
+
+
+        <!-- Add this before the footer -->
+        <div id="scatter3d-container">
+            <div id="scatter3d-controls">
+                <select id="metricSelect">
+                    <option value="Total_Calories">Calories</option>
+                    <option value="Total_Protein">Protein</option>
+                    <option value="Total_Sugar">Sugar</option>
+                    <option value="Total_Carbs">Carbs</option>
+                </select>
+            </div>
+            <div id="scatter3d-view"></div>
+        </div>
         
         <footer>
         </footer>
@@ -37,5 +51,6 @@
 
   <!-- Include your heatmap visualization script -->
   <script type="module" src="script.js"></script>
+
 </body>
 </html>
