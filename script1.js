@@ -53,6 +53,16 @@ const svg = d3.select("#heatmap-container")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+// Add title to the plot
+svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", -margin.top / 2)  // Position above the plot
+    .attr("text-anchor", "middle")
+    .style("fill", "white") // White text color
+    .style("font-size", "20px")
+    .style("font-weight", "bold")
+    .text("Nutrient Intake vs. Glucose Change Correlation Heatmap");
+    
 // Define relevant columns
 const nutrients = ["Total_Calories", "Total_Carbs", "Total_Sugar", "Total_Protein"];
 const glucose_changes = ["30_min_change", "60_min_change", "90_min_change", "120_min_change"];
