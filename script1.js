@@ -22,7 +22,7 @@ function computeCorrelationMatrix(data, variables) {
     return matrix;
 }
 
-const margin = { top: 80, right: 50, bottom: 50, left: 80 };
+const margin = { top: 80, right: 50, bottom: 120, left: 120 }; // Increased margins
 const width = 500 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -38,19 +38,38 @@ const xScale = d3.scaleBand().domain(variables).range([0, width]).padding(0.1);
 const yScale = d3.scaleBand().domain(variables).range([0, height]).padding(0.1);
 const colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([-1, 1]);
 
-svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(xScale));
-svg.append("g").call(d3.axisLeft(yScale));
-
-// Add axis labels
-svg.append("text")
-    .attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+// X and Y Axis
+svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(xScale))
+    .selectAll("text")
     .style("text-anchor", "middle")
-    .text("Variables");
+    .style("font-size", "12px")
+    .attr("transform", "rotate(-45)")
+    .attr("dx", "-1em")
+    .attr("dy", "1em");
+
+svg.append("g")
+    .call(d3.axisLeft(yScale))
+    .selectAll("text")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .attr("dx", "-1em")
+    .attr("dy", "0.5em");
+
+// Axis labels
+svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom - 10)
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px")
+    .text("Variables (X-axis)");
 
 svg.append("text")
     .attr("transform", `translate(-50, ${height / 2}) rotate(-90)`)
     .style("text-anchor", "middle")
-    .text("Variables");
+    .style("font-size", "16px")
+    .text("Variables (Y-axis)");
 
 const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -78,13 +97,15 @@ d3.csv("glucose_changes.csv").then(data => {
         .attr("height", yScale.bandwidth())
         .style("fill", d => colorScale(d.value))
         .style("stroke", "white")
-        .on("mouseover", (event, d) => {
+        .on("mouseover", function(event, d) {
             tooltip.transition().duration(200).style("opacity", 1);
             tooltip.html(`Correlation: ${d.value.toFixed(2)}`)
                 .style("left", (event.pageX + 5) + "px")
                 .style("top", (event.pageY - 28) + "px");
         })
-        .on("mouseout", () => tooltip.transition().duration(500).style("opacity", 0));
+        .on("mouseout", function() {
+            tooltip.transition().duration(500).style("opacity", 0);
+        });
 });
 
 svg.append("text")
