@@ -61,8 +61,8 @@ svg.append("text")
     .style("fill", "white") // White text color
     .style("font-size", "20px")
     .style("font-weight", "bold")
-    .text("Nutrient Intake vs. Glucose Change Correlation Heatmap");
-    
+    .text("From Bites to Spikes: Mapping Nutrients & Glucose Swings");
+
 // Define relevant columns
 const nutrients = ["Total_Calories", "Total_Carbs", "Total_Sugar", "Total_Protein"];
 const glucose_changes = ["30_min_change", "60_min_change", "90_min_change", "120_min_change"];
