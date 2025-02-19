@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.contributors {
+    margin-top: 40px;
+}
+
+.contributors ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contributors li {
+    margin: 10px 0;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #cccccc;
+}
