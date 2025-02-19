@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Science 106 Project 3</title>
   <link rel="stylesheet" href="style.css">
+
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="http://x3dom.org/x3dom/dist/x3dom-full.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://www.x3dom.org/download/dev/x3dom.css"/>
 </head>
 <body>
     <div class="container">
@@ -31,8 +36,32 @@
             <!-- The heatmap will be rendered here -->
         </div>
 
+        <div id="divPlot" style="width: 500px; height: 500px;">
+        </div>
 
-        <!-- Add this before the footer -->
+    </div>
+
+
+
+
+
+
+
+  <!-- Include your heatmap visualization script -->
+  <script type="module" src="script1.js"></script>
+  <script type="module" src="script2.js"></script>
+  <script type="module" src="script3.js"></script>
+  <script type="module">
+    import { initScatterPlot } from './script3.js';
+    initScatterPlot();
+  </script>
+
+</body>
+</html>
+
+
+        <!-- Add this before the footer 
+        <h4>3D Scatter Plot of Glucose Change vs. Time & Macronutrients </h4>
         <div id="scatter3d-container">
             <div id="scatter3d-controls">
                 <select id="metricSelect">
@@ -44,14 +73,4 @@
             </div>
             <div id="scatter3d-view"></div>
         </div>
-        
-        <footer>
-        </footer>
-    </div>
-
-  <!-- Include your heatmap visualization script -->
-  <script type="module" src="script1.js"></script>
-  <script type="module" src="scrip2.js"></script>
-  <script type="module" src="script3.js"></script>
-</body>
-</html>
+    -->
