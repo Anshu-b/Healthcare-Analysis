@@ -99,7 +99,7 @@ export function scatterPlot3d(parent) {
       var key = axisKeys[axisIndex];
       var scaleMin = axisRange[0];
       var scaleMax = axisRange[1];
-      var axisLabelText = ["Time (min)", "Glucose Level (mg/dL)", "Calories"][axisIndex];
+      var axisLabelText = ["Time (min)", "Net Glucose Change (mg/dL)", "Calories"][axisIndex];
   
       drawAxis(axisIndex, key, initialDuration);
   
