@@ -1,6 +1,5 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
-
 function pearsonCorrelation(x, y) {
     const meanX = d3.mean(x);
     const meanY = d3.mean(y);
@@ -8,7 +7,6 @@ function pearsonCorrelation(x, y) {
     const denom = Math.sqrt(d3.sum(x.map(xi => (xi - meanX) ** 2)) * d3.sum(y.map(yi => (yi - meanY) ** 2)));
     return denom === 0 ? 0 : num / denom; 
 }
-
 
 function computeCorrelationMatrix(data, variables) {
     const matrix = [];
@@ -24,7 +22,6 @@ function computeCorrelationMatrix(data, variables) {
     return matrix;
 }
 
-
 const margin = { top: 80, right: 50, bottom: 50, left: 80 };
 const width = 500 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
@@ -36,16 +33,13 @@ const svg = d3.select("#heatmap-container")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-
 const variables = ["Total_Carbs", "Total_Sugar", "30_min_change", "60_min_change", "90_min_change", "120_min_change"];
 const xScale = d3.scaleBand().domain(variables).range([0, width]).padding(0.1);
 const yScale = d3.scaleBand().domain(variables).range([0, height]).padding(0.1);
 const colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([-1, 1]);
 
-
 svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(xScale));
 svg.append("g").call(d3.axisLeft(yScale));
-
 
 const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -56,7 +50,7 @@ const tooltip = d3.select("body").append("div")
     .style("padding", "5px")
     .style("border-radius", "5px");
 
-
+// Ensure correct path to glucose_changes.csv
 d3.csv("glucose_changes.csv").then(data => {
     data.forEach(d => {
         variables.forEach(varName => d[varName] = +d[varName]);
@@ -83,14 +77,13 @@ d3.csv("glucose_changes.csv").then(data => {
         .on("mouseout", () => tooltip.transition().duration(500).style("opacity", 0));
 });
 
-
 svg.append("text")
     .attr("x", width / 2)
     .attr("y", -30)
     .attr("text-anchor", "middle")
     .style("font-size", "18px")
     .text("Nutritional & Glycemic Correlation Heatmap");
-    
+
     
 // Time Stamp Visualization
 // Visualization 3
