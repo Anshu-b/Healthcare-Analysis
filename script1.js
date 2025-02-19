@@ -10,19 +10,21 @@ function pearsonCorrelation(x, y) {
 
 function computeCorrelationMatrix(data, variables) {
     const matrix = [];
-    for (let i = 0; i < variables.length; i++) {
-        for (let j = 0; j < variables.length; j++) {
+    variables.forEach(var1 => {
+        variables.forEach(var2 => {
+            const xValues = data.map(d => parseFloat(d[var1]));
+            const yValues = data.map(d => parseFloat(d[var2]));
+            const correlation = pearsonCorrelation(xValues, yValues);
             matrix.push({
-                x: variables[i],
-                y: variables[j],
-                value: pearsonCorrelation(data.map(d => d[variables[i]]), data.map(d => d[variables[j]]))
+                x: var1,
+                y: var2,
+                value: correlation
             });
-        }
-    }
+        });
+    });
     return matrix;
 }
 
-// Format variable names for better readability
 function formatLabel(label) {
     return label.replace(/_/g, ' ')
         .split(' ')
@@ -30,10 +32,12 @@ function formatLabel(label) {
         .join(' ');
 }
 
-// Increased margins and dimensions for better spacing
 const margin = { top: 80, right: 80, bottom: 140, left: 140 };
 const width = 700 - margin.left - margin.right;
 const height = 700 - margin.top - margin.bottom;
+
+// Clear any existing SVG
+d3.select("#heatmap-container").selectAll("*").remove();
 
 const svg = d3.select("#heatmap-container")
     .append("svg")
@@ -49,16 +53,14 @@ const xScale = d3.scaleBand()
     .padding(0.05);
 
 const yScale = d3.scaleBand()
-    .domain(variables.slice().reverse()) // Reverse for better visualization
+    .domain(variables.slice().reverse())
     .range([0, height])
     .padding(0.05);
 
-// Updated color scale for better contrast
 const colorScale = d3.scaleSequential()
     .interpolator(d3.interpolateRdBu)
     .domain([1, -1]);
 
-// Improved X axis
 svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(xScale))
@@ -70,7 +72,6 @@ svg.append("g")
     .attr("transform", "rotate(-45)")
     .text(d => formatLabel(d));
 
-// Improved Y axis
 svg.append("g")
     .call(d3.axisLeft(yScale))
     .selectAll("text")
@@ -78,13 +79,12 @@ svg.append("g")
     .style("text-anchor", "end")
     .text(d => formatLabel(d));
 
-// Enhanced axis labels
 svg.append("text")
     .attr("x", width / 2)
     .attr("y", height + margin.bottom - 20)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Variables");
+    .text("Input Variables");
 
 svg.append("text")
     .attr("transform", "rotate(-90)")
@@ -92,9 +92,8 @@ svg.append("text")
     .attr("y", -margin.left + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Variables");
+    .text("Glycemic Response");
 
-// Improved title
 svg.append("text")
     .attr("x", width / 2)
     .attr("y", -margin.top / 2)
@@ -103,26 +102,36 @@ svg.append("text")
     .style("font-weight", "bold")
     .text("Nutritional & Glycemic Correlation Heatmap");
 
-// Enhanced tooltip
-const tooltip = d3.select("body").append("div")
+// Remove any existing tooltip
+d3.select("body").selectAll(".tooltip").remove();
+
+const tooltip = d3.select("body")
+    .append("div")
     .attr("class", "tooltip")
     .style("opacity", 0)
     .style("position", "absolute")
     .style("background-color", "white")
     .style("border", "1px solid #ccc")
     .style("border-radius", "5px")
-    .style("padding", "8px")
+    .style("padding", "10px")
     .style("box-shadow", "0 2px 4px rgba(0,0,0,0.1)")
-    .style("font-size", "12px");
+    .style("font-size", "12px")
+    .style("z-index", "999")
+    .style("pointer-events", "none");
 
+// Load and process data
 d3.csv("glucose_changes.csv").then(data => {
+    // Convert string values to numbers
     data.forEach(d => {
-        variables.forEach(varName => d[varName] = +d[varName]);
+        variables.forEach(varName => {
+            d[varName] = +d[varName];
+        });
     });
 
+    // Calculate correlation matrix
     const correlationMatrix = computeCorrelationMatrix(data, variables);
 
-    // Add correlation squares with improved styling
+    // Add correlation squares
     svg.selectAll("rect")
         .data(correlationMatrix)
         .enter()
@@ -135,29 +144,53 @@ d3.csv("glucose_changes.csv").then(data => {
         .style("stroke", "white")
         .style("stroke-width", 1)
         .on("mouseover", function(event, d) {
+            // Show tooltip with correlation value
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
+            
             tooltip.html(`
-                <strong>${formatLabel(d.x)} vs ${formatLabel(d.y)}</strong><br/>
-                Correlation: ${d.value.toFixed(3)}
+                <div style="font-weight: bold; margin-bottom: 5px;">
+                    ${formatLabel(d.x)} vs ${formatLabel(d.y)}
+                </div>
+                <div>
+                    Correlation: ${d.value.toFixed(3)}
+                </div>
             `)
                 .style("left", (event.pageX + 10) + "px")
                 .style("top", (event.pageY - 28) + "px");
-            
-            // Highlight the current square
+
+            // Highlight the cell
             d3.select(this)
                 .style("stroke", "#333")
                 .style("stroke-width", 2);
         })
         .on("mouseout", function() {
+            // Hide tooltip
             tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
             
-            // Reset square styling
+            // Reset cell highlighting
             d3.select(this)
                 .style("stroke", "white")
                 .style("stroke-width", 1);
         });
+
+    // Add correlation values as text in cells (optional)
+    svg.selectAll("text.correlation")
+        .data(correlationMatrix)
+        .enter()
+        .append("text")
+        .attr("class", "correlation")
+        .attr("x", d => xScale(d.x) + xScale.bandwidth() / 2)
+        .attr("y", d => yScale(d.y) + yScale.bandwidth() / 2)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", "10px")
+        .style("fill", d => Math.abs(d.value) > 0.5 ? "white" : "black")
+        .text(d => d.value.toFixed(2));
+}).catch(error => {
+    console.error("Error loading or processing data:", error);
+    alert("Error loading data. Check console for details.");
 });
