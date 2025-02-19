@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #808080;
+    background-color: rgb(41, 41, 41);
     color: white;
     margin: 0;
     padding: 0;
@@ -78,5 +78,10 @@ button:active {
 
 #divPlot {
     border: 1px solid white;
-    width: 100%;
+    width: 80%
+}
+
+x3d { 
+    width: 800px;
+    height: 800px;
 }

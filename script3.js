@@ -13,9 +13,9 @@ export function scatterPlot3d(parent) {
   
     scene.append("orthoviewpoint")
        .attr("centerOfRotation", [5, 5, 5])
-       .attr("fieldOfView", [-5, -5, 15, 15])
+       .attr("fieldOfView", [-15, -15, 20, 25])
        .attr("orientation", [-0.5, 1, 0.2, 1.12*Math.PI/4])
-       .attr("position", [8, 4, 15]);
+       .attr("position", [15, 15, 15]);
   
     var rows = []; // This will hold our data
     var axisRange = [0, 20]; // Adjust this range based on your data
@@ -60,10 +60,10 @@ export function scatterPlot3d(parent) {
           rows = data.map(function(d) {
             return {
               'Meal_Name': d.Meal_Name,
-              '30_min_change': +d['30_min_change'] || 0,
-              '60_min_change': +d['60_min_change'] || 0,
-              '90_min_change': +d['90_min_change'] || 0,
-              '120_min_change': +d['120_min_change'] || 0,
+              '30_min_change': Math.abs(+d['30_min_change']) || 0,
+              '60_min_change': Math.abs(+d['60_min_change']) || 0,
+              '90_min_change': Math.abs(+d['90_min_change']) || 0,
+              '120_min_change': Math.abs(+d['120_min_change']) || 0,
               'Total_Calories': +d.Total_Calories || 0,
               'Total_Carbs': +d.Total_Carbs || 0,
               'Total_Sugar': +d.Total_Sugar || 0,
@@ -99,7 +99,7 @@ export function scatterPlot3d(parent) {
       var key = axisKeys[axisIndex];
       var scaleMin = axisRange[0];
       var scaleMax = axisRange[1];
-      var axisLabelText = ["Time (min)", "Glucose Level", "Calories"][axisIndex];
+      var axisLabelText = ["Time (min)", "Glucose Level (mg/dL)", "Calories"][axisIndex];
   
       drawAxis(axisIndex, key, initialDuration);
   
@@ -145,7 +145,7 @@ export function scatterPlot3d(parent) {
       var scale;
       
       if (axisIndex === 0) { // Time axis
-        scale = d3.scale.linear().domain([30, 120]).range(axisRange);
+        scale = d3.scale.linear().domain([0, 120]).range(axisRange);
       } else if (axisIndex === 1) { // Glucose level axis
         var maxGlucose = Math.max(
           d3.max(rows, d => d['30_min_change'] || 0),
@@ -153,6 +153,7 @@ export function scatterPlot3d(parent) {
           d3.max(rows, d => d['90_min_change'] || 0),
           d3.max(rows, d => d['120_min_change'] || 0)
         );
+        
         scale = d3.scale.linear().domain([0, maxGlucose || 100]).range(axisRange);
       } else { // Macro-nutrient axis
         var maxMacro = Math.max(
