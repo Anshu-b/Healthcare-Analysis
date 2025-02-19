@@ -83,33 +83,3 @@ svg.append("text")
     .attr("text-anchor", "middle")
     .style("font-size", "18px")
     .text("Nutritional & Glycemic Correlation Heatmap");
-
-    
-// Time Stamp Visualization
-// Visualization 3
-
-const visHeight = 100;
-
-const visualization3 = d3.select("#chart").append("svg").attr("height", height);
-
-function render(data) {
-  const barWidth = 25;
-  const barSpace = 5;
-
-  // Dynamize (?) the width
-  const visWidth = data.length * (barWidth + barSpace);
-
-  visualization3.attr("width", visWidth);
-
-  const graphBars = visualization3.selectAll("rect").data(data);
-
-  graphBars.join("rect")
-    .attr("x", (d, i) => i * (barWidth + barSpace))
-    .attr("y", d => visHeight - d)
-    .attr("width", barWidth)
-    .attr("height", d => d)
-    .attr("fill", "blue");
-}
-
-// actually render this thing on the first timestamp
-// render(30data);
