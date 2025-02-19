@@ -79,10 +79,10 @@ function renderVis3(data, labels, color) {
 // Button Click Functionality
 function startEventListeners() {
     // Each button gives it a new color (that matches the csv kinda)
-    document.getElementById("30min").addEventListener("click", () => renderVis3(data30, data30Meals, "#2c3e50"));
-    document.getElementById("60min").addEventListener("click", () => renderVis3(data60, data30Meals, "#f1c40f"));
-    document.getElementById("90min").addEventListener("click", () => renderVis3(data90, data30Meals, "#145A32"));
-    document.getElementById("120min").addEventListener("click", () => renderVis3(data120, data30Meals, "#BA4A00"));
+    document.getElementById("30min").addEventListener("click", () => renderVis3(data30, data30Meals, "#34577a"));
+    document.getElementById("60min").addEventListener("click", () => renderVis3(data60, data30Meals, "#c9a208"));
+    document.getElementById("90min").addEventListener("click", () => renderVis3(data90, data30Meals, "#0f572f"));
+    document.getElementById("120min").addEventListener("click", () => renderVis3(data120, data30Meals, "#aa4400"));
 }
 
 loadData();

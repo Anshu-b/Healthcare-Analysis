@@ -27,3 +27,61 @@ body {
 .contributors li {
     margin: 10px 0;
 }
+
+/* Visualization 3 style */
+#Time-Vis svg {
+    background-color: #252525;
+    border: 1.5px solid #afafaf;
+    border-radius: 5px;
+}
+
+.domain {
+    stroke: #9b9b9b;
+}
+  
+.tick line {
+    stroke: #d1d0d0;
+}
+  
+.tick text {
+    fill: #313131;
+    font-size: 1em;
+    font-family: sans-serif;
+}
+  
+/* button style */
+button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #eaeaea;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s, color 0.3s;
+}
+  
+button:active {
+    color: #fff;
+    background-color: #6b6b6b;
+}
+  
+#30min:hover {
+    background-color: #34577a;
+    color: #fff;
+}
+  
+#60min:hover {
+    background-color: #c9a208;
+    color: #000;
+}
+  
+#90min:hover {
+    background-color: #0f572f;
+    color: #fff;
+}
+  
+#120min:hover {
+    background-color: #aa4400;
+    color: #fff;
+}
