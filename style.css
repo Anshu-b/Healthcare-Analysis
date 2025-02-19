@@ -75,3 +75,7 @@ button:active {
     pointer-events: none;
     opacity: 0; /* Starts hidden, becomes visible on hover */
 }
+#divPlot {
+    border: 1px solid white;
+    width: 100%;
+}
