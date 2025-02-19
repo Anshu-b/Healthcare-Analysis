@@ -6,7 +6,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 const visHeight = 200;
 const barWidth = 25;
 const barSpace = 5;
-const visualization3 = d3.select("#chart").append("svg").attr("height", visHeight);
+const visualization3 = d3.select("#Time-Vis").append("svg").attr("height", visHeight);
 
 // Javascript needs these initialized or else it bricks
 let data30, data60, data90, data120, data30Meals;
