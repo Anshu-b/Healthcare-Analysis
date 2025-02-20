@@ -14,16 +14,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>The Glycemic Code: Deciphering Blood Sugar Variability Through Explanatory Data Analysis</h1>
-        
+        <h1>What is the Relationship between the Food we Eat and our Blood Glucose Levels? </h1>
+        <span style="border-bottom: 2px solid #fff; display: block; margin: 10px 0;"></span>
         <div class="contributors">
-            <h2>Contributors</h2>
+            <h3>Contributors:</h3>
             <ul>
-                <li>Ansh Bhatnagar</li>
-                <li>Mehul Verma</li>
-                <li>Jeronimo Adames-Baena</li>
+                <li><h3>Ansh Bhatnagar.</h3></li>
+                <li><h3>Mehul Verma.</h3></li>
+                <li><h3>Jeronimo Adames-Baena.</h3></li>
             </ul>
         </div>
+        <span style="border-bottom: 2px solid #fff; display: block; margin: 10px 0;"></span>
         
         <br>
 
@@ -32,22 +33,29 @@
         <button id="min60">60 Minutes</button>
         <button id="min90">90 Minutes</button>
         <button id="min120">120 Minutes</button>
+        <p> This is a dynamic bar chart showing post-meal glucose changes (measured in mg/dl) for different meals, with negative values (red) indicating glucose decreases and positive values (green) indicating increases. Users can select different time intervals (30, 60, 90, or 120 minutes) using the buttons at the bottom to see how glucose levels change at various points after consuming these meals.</p>
 
         <br>
         <br>
-
+        <span style="border-bottom: 2px solid #fff; display: block; margin: 10px 0;"></span>
         <!-- Heatmap Container -->
         <div id="heatmap-container">
             <!-- The heatmap will be rendered here -->
         </div>
+        <p> We chose to represent the data as a diverging green red scale heatmap utilizing a correlation matrix implemented with a helper function to compute the Pearson correlation coefficient r, as well as lay down the frameworks for the matrix to impute the data into. Color encoding similar to what you would see in clinical trials and experiments' results </p>
 
         <br>
 
-        <h3> 3D Scatterplot of Glucose Spike vs. Chosen Macronutrient </h3>
+        <span style="border-bottom: 2px solid #fff; display: block; margin: 10px 0;"></span>
+        <h3> What is the Relationship between Time, Net Glucose Fluctuation, & Macronutrients? </h3>
+        <p> Interacting with this graph: Use the dropdowns below to choose the time since consumption and macronutrient you want to plot in this 3D scatteplot, and watch the datapoints, colored based on signifance of glucose change, move around based on your selections. Use the scrollbar on your mouse to effectively zoom in and out to view each datapoint and different points of the graph in detail. It is defaulted to be zoomed-out to see the axes clealry upon loading! </p>
         <div id="divPlot" style="width: 500px; height: 500px;">
         </div>
+  
 
     </div>
+
+    <div class="bottom"> </div>
 
 
 

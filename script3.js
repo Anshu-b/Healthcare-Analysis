@@ -13,9 +13,9 @@ export function scatterPlot3d(parent) {
   
     scene.append("orthoviewpoint")
        .attr("centerOfRotation", [5, 5, 5])
-       .attr("fieldOfView", [-15, -15, 20, 25])
+       .attr("fieldOfView", [-15, -10, 20, 25])
        .attr("orientation", [-0.5, 1, 0.2, 1.12*Math.PI/4])
-       .attr("position", [15, 15, 15]);
+       .attr("position", [17, 15, 15]);
   
     var rows = []; // This will hold our data
     var axisRange = [0, 20]; // Adjust this range based on your data
