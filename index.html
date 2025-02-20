@@ -10,6 +10,7 @@
   <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
   <script type="text/javascript" src="https://x3dom.org/x3dom/dist/x3dom-full.js"></script>
   <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/dev/x3dom.css"/>
+
 </head>
 <body>
     <div class="container">
@@ -23,18 +24,24 @@
                 <li>Jeronimo Adames-Baena</li>
             </ul>
         </div>
+        
+        <br>
 
         <div id="Time-Vis"></div>
+        <button id="min30">30 Minutes</button>
+        <button id="min60">60 Minutes</button>
+        <button id="min90">90 Minutes</button>
+        <button id="min120">120 Minutes</button>
 
-        <button id="30min">30 Minutes</button>
-        <button id="60min">60 Minutes</button>
-        <button id="90min">90 Minutes</button>
-        <button id="120min">120 Minutes</button>
+        <br>
+        <br>
 
         <!-- Heatmap Container -->
         <div id="heatmap-container">
             <!-- The heatmap will be rendered here -->
         </div>
+
+        <br>
 
         <h3> 3D Scatterplot of Glucose Spike vs. Chosen Macronutrient </h3>
         <div id="divPlot" style="width: 500px; height: 500px;">

@@ -28,14 +28,15 @@ body {
     margin: 10px 0;
 }
 
+/* css for time-vis buttons */
 button {
     margin: 5px;
     padding: 8px 12px;
     border: 1px solid #c2c0c0;
-    border-radius: 4px;
+    border-radius: 12px;
     background-color: #dedddd;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 1em;
     transition: background-color 0.3s, color 0.3s;
 }
   
@@ -44,24 +45,27 @@ button:active {
     background-color: #727272;
 }
   
-#30min:hover {
+#min30:hover {
     background-color: #2a4d70;
-    color: #fff;
+    color: #ffffff;
 }
   
-#60min:hover {
-    background-color: #d1ab11;
-    color: #000;
+#min60:hover {
+    background-color: #b4951b;
+    color: #ffffff;
 }
   
-#90min:hover {
+#min90:hover {
     background-color: #11582f;
-    color: #fff;
+    color: #ffffff;
 }
-#120min:hover {
+#min120:hover {
     background-color: #933b00;
-    color: #fff;
+    color: #ffffff;
 }
+
+/* end of css for time-vis */
+
 .tooltip {
     color: black !important; /* Ensures text is visible */
     font-size: 14px;
