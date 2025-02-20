@@ -109,7 +109,7 @@ function renderTimeVis(newData, newLabels, color, initial = false) {
     .attr("fill", "#f0f0f0")
     .style("font-size", "20px")
     .style("font-weight", "bold")
-    .text("Post-Meal Glucose Changes (magnitudes)");
+    .text("Post-Meal Glucose Changes (Magnitudes)");
   const innerWidth = visWidth;
   const innerHeight = visHeight;
   xAxisLabel.transition().duration(dur)
